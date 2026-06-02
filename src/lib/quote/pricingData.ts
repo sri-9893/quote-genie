@@ -46,7 +46,7 @@ export const websiteTypes: WebsiteType[] = [
 export const packages: Record<PackageKey, PackageInfo> = {
   low: {
     key: "low",
-    name: "Low Budget",
+    name: "Basic",
     tagline: "Basic static website to get online fast",
     basePrice: 12000,
     perPage: 800,
@@ -63,7 +63,7 @@ export const packages: Record<PackageKey, PackageInfo> = {
   },
   mid: {
     key: "mid",
-    name: "Mid Range",
+    name: "Advance",
     tagline: "Dynamic website with admin & enquiry management",
     basePrice: 25000,
     perPage: 1500,
