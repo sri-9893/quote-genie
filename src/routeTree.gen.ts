@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as PublicServicesRouteImport } from './routes/_public.services'
+import { Route as PublicQuotationPreviewRouteImport } from './routes/_public.quotation-preview'
 import { Route as PublicPricingRouteImport } from './routes/_public.pricing'
 import { Route as PublicEstimateRouteImport } from './routes/_public.estimate'
 import { Route as PublicContactRouteImport } from './routes/_public.contact'
@@ -28,6 +29,11 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
 const PublicServicesRoute = PublicServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicQuotationPreviewRoute = PublicQuotationPreviewRouteImport.update({
+  id: '/quotation-preview',
+  path: '/quotation-preview',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicPricingRoute = PublicPricingRouteImport.update({
@@ -51,12 +57,14 @@ export interface FileRoutesByFullPath {
   '/contact': typeof PublicContactRoute
   '/estimate': typeof PublicEstimateRoute
   '/pricing': typeof PublicPricingRoute
+  '/quotation-preview': typeof PublicQuotationPreviewRoute
   '/services': typeof PublicServicesRoute
 }
 export interface FileRoutesByTo {
   '/contact': typeof PublicContactRoute
   '/estimate': typeof PublicEstimateRoute
   '/pricing': typeof PublicPricingRoute
+  '/quotation-preview': typeof PublicQuotationPreviewRoute
   '/services': typeof PublicServicesRoute
   '/': typeof PublicIndexRoute
 }
@@ -66,20 +74,34 @@ export interface FileRoutesById {
   '/_public/contact': typeof PublicContactRoute
   '/_public/estimate': typeof PublicEstimateRoute
   '/_public/pricing': typeof PublicPricingRoute
+  '/_public/quotation-preview': typeof PublicQuotationPreviewRoute
   '/_public/services': typeof PublicServicesRoute
   '/_public/': typeof PublicIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contact' | '/estimate' | '/pricing' | '/services'
+  fullPaths:
+    | '/'
+    | '/contact'
+    | '/estimate'
+    | '/pricing'
+    | '/quotation-preview'
+    | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/contact' | '/estimate' | '/pricing' | '/services' | '/'
+  to:
+    | '/contact'
+    | '/estimate'
+    | '/pricing'
+    | '/quotation-preview'
+    | '/services'
+    | '/'
   id:
     | '__root__'
     | '/_public'
     | '/_public/contact'
     | '/_public/estimate'
     | '/_public/pricing'
+    | '/_public/quotation-preview'
     | '/_public/services'
     | '/_public/'
   fileRoutesById: FileRoutesById
@@ -111,6 +133,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicServicesRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/quotation-preview': {
+      id: '/_public/quotation-preview'
+      path: '/quotation-preview'
+      fullPath: '/quotation-preview'
+      preLoaderRoute: typeof PublicQuotationPreviewRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/pricing': {
       id: '/_public/pricing'
       path: '/pricing'
@@ -139,6 +168,7 @@ interface PublicRouteChildren {
   PublicContactRoute: typeof PublicContactRoute
   PublicEstimateRoute: typeof PublicEstimateRoute
   PublicPricingRoute: typeof PublicPricingRoute
+  PublicQuotationPreviewRoute: typeof PublicQuotationPreviewRoute
   PublicServicesRoute: typeof PublicServicesRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
@@ -147,6 +177,7 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicContactRoute: PublicContactRoute,
   PublicEstimateRoute: PublicEstimateRoute,
   PublicPricingRoute: PublicPricingRoute,
+  PublicQuotationPreviewRoute: PublicQuotationPreviewRoute,
   PublicServicesRoute: PublicServicesRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
