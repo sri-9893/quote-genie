@@ -13,6 +13,7 @@ import { Route as PublicRouteImport } from './routes/_public'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as PublicServicesRouteImport } from './routes/_public.services'
 import { Route as PublicPricingRouteImport } from './routes/_public.pricing'
+import { Route as PublicEstimateRouteImport } from './routes/_public.estimate'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -33,13 +34,20 @@ const PublicPricingRoute = PublicPricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicEstimateRoute = PublicEstimateRouteImport.update({
+  id: '/estimate',
+  path: '/estimate',
+  getParentRoute: () => PublicRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
+  '/estimate': typeof PublicEstimateRoute
   '/pricing': typeof PublicPricingRoute
   '/services': typeof PublicServicesRoute
 }
 export interface FileRoutesByTo {
+  '/estimate': typeof PublicEstimateRoute
   '/pricing': typeof PublicPricingRoute
   '/services': typeof PublicServicesRoute
   '/': typeof PublicIndexRoute
@@ -47,18 +55,20 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public': typeof PublicRouteWithChildren
+  '/_public/estimate': typeof PublicEstimateRoute
   '/_public/pricing': typeof PublicPricingRoute
   '/_public/services': typeof PublicServicesRoute
   '/_public/': typeof PublicIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pricing' | '/services'
+  fullPaths: '/' | '/estimate' | '/pricing' | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/pricing' | '/services' | '/'
+  to: '/estimate' | '/pricing' | '/services' | '/'
   id:
     | '__root__'
     | '/_public'
+    | '/_public/estimate'
     | '/_public/pricing'
     | '/_public/services'
     | '/_public/'
@@ -98,16 +108,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicPricingRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/estimate': {
+      id: '/_public/estimate'
+      path: '/estimate'
+      fullPath: '/estimate'
+      preLoaderRoute: typeof PublicEstimateRouteImport
+      parentRoute: typeof PublicRoute
+    }
   }
 }
 
 interface PublicRouteChildren {
+  PublicEstimateRoute: typeof PublicEstimateRoute
   PublicPricingRoute: typeof PublicPricingRoute
   PublicServicesRoute: typeof PublicServicesRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
+  PublicEstimateRoute: PublicEstimateRoute,
   PublicPricingRoute: PublicPricingRoute,
   PublicServicesRoute: PublicServicesRoute,
   PublicIndexRoute: PublicIndexRoute,
