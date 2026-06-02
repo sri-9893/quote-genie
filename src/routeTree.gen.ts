@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as PublicServicesRouteImport } from './routes/_public.services'
+import { Route as PublicPricingRouteImport } from './routes/_public.pricing'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -27,27 +28,40 @@ const PublicServicesRoute = PublicServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicPricingRoute = PublicPricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => PublicRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
+  '/pricing': typeof PublicPricingRoute
   '/services': typeof PublicServicesRoute
 }
 export interface FileRoutesByTo {
+  '/pricing': typeof PublicPricingRoute
   '/services': typeof PublicServicesRoute
   '/': typeof PublicIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public': typeof PublicRouteWithChildren
+  '/_public/pricing': typeof PublicPricingRoute
   '/_public/services': typeof PublicServicesRoute
   '/_public/': typeof PublicIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/services'
+  fullPaths: '/' | '/pricing' | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/services' | '/'
-  id: '__root__' | '/_public' | '/_public/services' | '/_public/'
+  to: '/pricing' | '/services' | '/'
+  id:
+    | '__root__'
+    | '/_public'
+    | '/_public/pricing'
+    | '/_public/services'
+    | '/_public/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,15 +91,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicServicesRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/pricing': {
+      id: '/_public/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PublicPricingRouteImport
+      parentRoute: typeof PublicRoute
+    }
   }
 }
 
 interface PublicRouteChildren {
+  PublicPricingRoute: typeof PublicPricingRoute
   PublicServicesRoute: typeof PublicServicesRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
+  PublicPricingRoute: PublicPricingRoute,
   PublicServicesRoute: PublicServicesRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
