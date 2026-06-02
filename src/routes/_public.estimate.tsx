@@ -37,7 +37,7 @@ function Estimate() {
   const [form, setForm] = useState<EstimatorInput>({
     websiteType: "business",
     pages: 5,
-    packageKey: pkg && packages[pkg] ? pkg : "mid",
+    packageKey: pkg && packageOrder.includes(pkg) ? pkg : "mid",
     features: ["contactForm", "whatsapp"],
     urgency: "normal",
     expectedBudget: 25000,
