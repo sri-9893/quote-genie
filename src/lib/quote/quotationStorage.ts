@@ -86,7 +86,10 @@ export function deleteQuotation(id: string) {
 
 export function subscribe(callback: () => void): () => void {
   if (!isBrowser()) return () => {};
-  const handler = () => callback();
+  const handler = () => {
+    cache = null; // ensure snapshot recomputes (covers cross-tab storage events)
+    callback();
+  };
   window.addEventListener(EVENT, handler);
   window.addEventListener("storage", handler);
   return () => {
