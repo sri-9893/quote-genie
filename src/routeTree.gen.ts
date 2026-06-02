@@ -14,6 +14,7 @@ import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as PublicServicesRouteImport } from './routes/_public.services'
 import { Route as PublicPricingRouteImport } from './routes/_public.pricing'
 import { Route as PublicEstimateRouteImport } from './routes/_public.estimate'
+import { Route as PublicContactRouteImport } from './routes/_public.contact'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -39,14 +40,21 @@ const PublicEstimateRoute = PublicEstimateRouteImport.update({
   path: '/estimate',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicContactRoute = PublicContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => PublicRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
+  '/contact': typeof PublicContactRoute
   '/estimate': typeof PublicEstimateRoute
   '/pricing': typeof PublicPricingRoute
   '/services': typeof PublicServicesRoute
 }
 export interface FileRoutesByTo {
+  '/contact': typeof PublicContactRoute
   '/estimate': typeof PublicEstimateRoute
   '/pricing': typeof PublicPricingRoute
   '/services': typeof PublicServicesRoute
@@ -55,6 +63,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public': typeof PublicRouteWithChildren
+  '/_public/contact': typeof PublicContactRoute
   '/_public/estimate': typeof PublicEstimateRoute
   '/_public/pricing': typeof PublicPricingRoute
   '/_public/services': typeof PublicServicesRoute
@@ -62,12 +71,13 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/estimate' | '/pricing' | '/services'
+  fullPaths: '/' | '/contact' | '/estimate' | '/pricing' | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/estimate' | '/pricing' | '/services' | '/'
+  to: '/contact' | '/estimate' | '/pricing' | '/services' | '/'
   id:
     | '__root__'
     | '/_public'
+    | '/_public/contact'
     | '/_public/estimate'
     | '/_public/pricing'
     | '/_public/services'
@@ -115,10 +125,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicEstimateRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/contact': {
+      id: '/_public/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof PublicContactRouteImport
+      parentRoute: typeof PublicRoute
+    }
   }
 }
 
 interface PublicRouteChildren {
+  PublicContactRoute: typeof PublicContactRoute
   PublicEstimateRoute: typeof PublicEstimateRoute
   PublicPricingRoute: typeof PublicPricingRoute
   PublicServicesRoute: typeof PublicServicesRoute
@@ -126,6 +144,7 @@ interface PublicRouteChildren {
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
+  PublicContactRoute: PublicContactRoute,
   PublicEstimateRoute: PublicEstimateRoute,
   PublicPricingRoute: PublicPricingRoute,
   PublicServicesRoute: PublicServicesRoute,
@@ -141,3 +160,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
