@@ -30,6 +30,7 @@ function read(): Quotation[] {
 function write(list: Quotation[]) {
   if (!isBrowser()) return;
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  cache = null; // invalidate snapshot cache
   window.dispatchEvent(new Event(EVENT));
 }
 
@@ -39,9 +40,18 @@ function makeId(): string {
 }
 
 export function getQuotations(): Quotation[] {
-  return read().sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  );
+  return read()
+    .slice()
+    .sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+}
+
+// Cached snapshot for useSyncExternalStore (stable reference until changed).
+let cache: Quotation[] | null = null;
+export function getQuotationsSnapshot(): Quotation[] {
+  if (cache === null) cache = getQuotations();
+  return cache;
 }
 
 export function getQuotation(id: string): Quotation | undefined {
