@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { getQuotations, subscribe } from "./quotationStorage";
+import { getQuotationsSnapshot, subscribe } from "./quotationStorage";
 import { isAuthenticated, subscribeAuth } from "./adminAuth";
 import type { Quotation } from "./types";
 
@@ -9,7 +9,7 @@ const EMPTY: Quotation[] = [];
 export function useQuotations(): Quotation[] {
   return useSyncExternalStore(
     subscribe,
-    () => getQuotations(),
+    getQuotationsSnapshot,
     () => EMPTY,
   );
 }
