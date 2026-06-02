@@ -2,7 +2,7 @@ import { jsPDF } from "jspdf";
 import { formatCurrency } from "./pricingData";
 import type { EstimatorInput, EstimateResult } from "./types";
 
-const BRAND = "NexaForge Studio";
+const BRAND = "Tech Minds IT Solutions";
 const PRIMARY: [number, number, number] = [56, 70, 220];
 const DARK: [number, number, number] = [30, 33, 60];
 const MUTED: [number, number, number] = [120, 124, 150];

@@ -7,8 +7,8 @@ import { Section } from "@/components/site/Section";
 export const Route = createFileRoute("/_public/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — NexaForge Studio" },
-      { name: "description", content: "Get in touch with NexaForge for your next project." },
+      { title: "Contact — Tech Minds IT Solutions Studio" },
+      { name: "description", content: "Get in touch with Tech Minds IT Solutionsfor your next project." },
     ],
   }),
   component: Contact,
@@ -48,10 +48,10 @@ function Contact() {
       <Section className="grid gap-8 py-16 lg:grid-cols-2">
         <div className="space-y-4">
           {[
-            { icon: Mail, label: "Email", value: "hello@nexaforge.dev" },
-            { icon: Phone, label: "Phone", value: "+91 98765 43210" },
-            { icon: MessageCircle, label: "WhatsApp", value: "+91 98765 43210" },
-            { icon: MapPin, label: "Office", value: "Bengaluru, India" },
+            { icon: Mail, label: "Email", value: "info@techmindsit.com" },
+            { icon: Phone, label: "Phone", value: "+91 9710499993" },
+            { icon: MessageCircle, label: "WhatsApp", value: "+91 9710499993" },
+            { icon: MapPin, label: "Office", value: "Nellore, India" },
           ].map((c) => (
             <div key={c.label} className="flex items-center gap-4 rounded-xl border border-border bg-card p-5">
               <span className="grid h-11 w-11 place-items-center rounded-lg gradient-primary text-primary-foreground">

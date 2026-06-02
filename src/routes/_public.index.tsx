@@ -17,11 +17,11 @@ import { packageOrder, packages, formatCurrency } from "@/lib/quote/pricingData"
 export const Route = createFileRoute("/_public/")({
   head: () => ({
     meta: [
-      { title: "NexaForge — Build, Brand & Grow Your Business Online" },
+      { title: "Tech Minds IT Solutions — Build, Brand & Grow Your Business Online" },
       {
         name: "description",
         content:
-          "NexaForge builds websites, branding, SEO and digital marketing for startups. Estimate your project cost in seconds.",
+          "Tech Minds IT Solutions builds websites, branding, SEO and digital marketing for startups. Estimate your project cost in seconds.",
       },
     ],
   }),

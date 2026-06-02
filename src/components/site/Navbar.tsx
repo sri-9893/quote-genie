@@ -21,7 +21,7 @@ export function Navbar() {
             <Calculator className="h-5 w-5" />
           </span>
           <span className="text-lg tracking-tight">
-            Nexa<span className="text-gradient">Forge</span>
+            Tech Minds<span className="text-gradient">IT Solutions</span>
           </span>
         </Link>
 

@@ -15,7 +15,7 @@ import { downloadQuotationPdf } from "@/lib/quote/pdfGenerator";
 
 export const Route = createFileRoute("/_public/quotation-preview")({
   head: () => ({
-    meta: [{ title: "Quotation Preview — NexaForge Studio" }],
+    meta: [{ title: "Quotation Preview — Tech Minds IT Solutions" }],
   }),
   component: QuotationPreview,
 });

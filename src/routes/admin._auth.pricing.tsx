@@ -16,7 +16,7 @@ import {
 } from "@/lib/quote/pricingStore";
 
 export const Route = createFileRoute("/admin/_auth/pricing")({
-  head: () => ({ meta: [{ title: "Pricing Settings — NexaForge Admin" }] }),
+  head: () => ({ meta: [{ title: "Pricing Settings — Tech Minds IT SolutionsAdmin" }] }),
   component: PricingSettings,
 });
 

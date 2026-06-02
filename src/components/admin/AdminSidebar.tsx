@@ -34,7 +34,7 @@ export function AdminSidebar() {
           <Calculator className="h-5 w-5" />
         </span>
         <div>
-          <p className="text-sm font-bold leading-tight">NexaForge</p>
+          <p className="text-sm font-bold leading-tight">Tech Minds IT Solutions</p>
           <p className="text-xs text-sidebar-foreground/60">Admin Panel</p>
         </div>
       </div>
@@ -78,7 +78,7 @@ export function AdminSidebar() {
     <>
       {/* Mobile top bar */}
       <div className="sticky top-0 z-30 flex items-center justify-between border-b border-sidebar-border bg-sidebar px-4 py-3 text-sidebar-foreground md:hidden">
-        <span className="font-bold">NexaForge Admin</span>
+        <span className="font-bold">Tech Minds IT Solutions Admin</span>
         <button onClick={() => setOpen(true)} aria-label="Open menu">
           <Menu className="h-6 w-6" />
         </button>

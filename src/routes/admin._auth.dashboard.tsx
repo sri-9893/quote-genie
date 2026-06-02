@@ -6,7 +6,7 @@ import { StatusBadge } from "@/components/quote/StatusBadge";
 import { formatDistanceToNow } from "date-fns";
 
 export const Route = createFileRoute("/admin/_auth/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — NexaForge Admin" }] }),
+  head: () => ({ meta: [{ title: "Dashboard — Tech Minds IT Solutions Admin" }] }),
   component: Dashboard,
 });
 

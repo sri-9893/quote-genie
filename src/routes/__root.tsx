@@ -78,14 +78,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "NexaForge — Website Cost Estimator & Quotation" },
+      { title: "Tech Minds IT Solutions — Website Cost Estimator & Quotation" },
       {
         name: "description",
         content:
           "Instantly estimate the cost of your website, branding, SEO and digital project. Get a detailed quotation and download it as a PDF.",
       },
-      { name: "author", content: "NexaForge Studio" },
-      { property: "og:title", content: "NexaForge — Website Cost Estimator" },
+      { name: "author", content: "Tech Minds IT Solutions" },
+      { property: "og:title", content: "Tech Minds IT Solutions — Website Cost Estimator" },
       {
         property: "og:description",
         content: "Estimate your website project cost and get an instant quotation.",

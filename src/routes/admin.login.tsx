@@ -5,7 +5,7 @@ import { Lock, Calculator, ArrowLeft } from "lucide-react";
 import { login, ADMIN_EMAIL, ADMIN_PASSWORD } from "@/lib/quote/adminAuth";
 
 export const Route = createFileRoute("/admin/login")({
-  head: () => ({ meta: [{ title: "Admin Login — NexaForge" }] }),
+  head: () => ({ meta: [{ title: "Admin Login — Tech Minds IT Solutions" }] }),
   component: AdminLogin,
 });
 
@@ -39,7 +39,7 @@ function AdminLogin() {
           </span>
           <div>
             <h1 className="text-lg font-bold text-foreground">Admin Login</h1>
-            <p className="text-xs text-muted-foreground">NexaForge dashboard</p>
+            <p className="text-xs text-muted-foreground">Tech Minds IT Solutions dashboard</p>
           </div>
         </div>
 

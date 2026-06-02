@@ -10,7 +10,7 @@ export function Footer() {
             <span className="grid h-9 w-9 place-items-center rounded-lg gradient-primary text-primary-foreground">
               <Calculator className="h-5 w-5" />
             </span>
-            <span className="text-lg">NexaForge</span>
+            <span className="text-lg">Tech Minds IT Solutions</span>
           </div>
           <p className="mt-4 text-sm text-sidebar-foreground/70">
             Websites, branding, SEO & digital growth for ambitious startups.
@@ -44,14 +44,14 @@ export function Footer() {
             Contact
           </h4>
           <ul className="space-y-2 text-sm text-sidebar-foreground/80">
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4" /><span>hello@nexaforge.dev</span></li>
+            <li className="flex items-center gap-2"><Mail className="h-4 w-4" /><span>hello@Tech Minds IT Solutions.dev</span></li>
             <li className="flex items-center gap-2"><Phone className="h-4 w-4" /><span>+91 98765 43210</span></li>
             <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /><span>Bengaluru, India</span></li>
           </ul>
         </div>
       </div>
       <div className="border-t border-white/10 py-5 text-center text-xs text-sidebar-foreground/60">
-        © {new Date().getFullYear()} NexaForge Studio. Demo project — data stored locally.
+        © {new Date().getFullYear()} Tech Minds IT Solutions. Demo project — data stored locally.
       </div>
     </footer>
   );

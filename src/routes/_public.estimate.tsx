@@ -26,7 +26,7 @@ export const Route = createFileRoute("/_public/estimate")({
   }),
   head: () => ({
     meta: [
-      { title: "Cost Estimator — NexaForge Studio" },
+      { title: "Cost Estimator — Tech Minds IT Solutions" },
       { name: "description", content: "Estimate your website project cost instantly." },
     ],
   }),

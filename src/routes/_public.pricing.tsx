@@ -10,7 +10,7 @@ import { useEffectivePackages, useEffectiveFeatures } from "@/lib/quote/hooks";
 export const Route = createFileRoute("/_public/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing Packages — NexaForge Studio" },
+      { title: "Pricing Packages — Tech Minds IT Solutions" },
       {
         name: "description",
         content:

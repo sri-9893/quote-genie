@@ -16,7 +16,7 @@ import { Section, SectionHeading } from "@/components/site/Section";
 export const Route = createFileRoute("/_public/services")({
   head: () => ({
     meta: [
-      { title: "Services — NexaForge Studio" },
+      { title: "Services — Tech Minds IT Solutions" },
       {
         name: "description",
         content:

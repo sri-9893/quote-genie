@@ -28,7 +28,7 @@ import { StatusBadge } from "@/components/quote/StatusBadge";
 import { formatDistanceToNow } from "date-fns";
 
 export const Route = createFileRoute("/admin/_auth/quotations/$id")({
-  head: () => ({ meta: [{ title: "Quotation Detail — NexaForge Admin" }] }),
+  head: () => ({ meta: [{ title: "Quotation Detail — Tech Minds IT Solutions Admin" }] }),
   component: QuotationDetail,
 });
 
