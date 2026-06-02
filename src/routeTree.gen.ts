@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as PublicServicesRouteImport } from './routes/_public.services'
 import { Route as PublicQuotationPreviewRouteImport } from './routes/_public.quotation-preview'
 import { Route as PublicPricingRouteImport } from './routes/_public.pricing'
@@ -25,6 +26,11 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PublicRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PublicServicesRoute = PublicServicesRouteImport.update({
   id: '/services',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PublicPricingRoute
   '/quotation-preview': typeof PublicQuotationPreviewRoute
   '/services': typeof PublicServicesRoute
+  '/admin/login': typeof AdminLoginRoute
 }
 export interface FileRoutesByTo {
   '/contact': typeof PublicContactRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PublicPricingRoute
   '/quotation-preview': typeof PublicQuotationPreviewRoute
   '/services': typeof PublicServicesRoute
+  '/admin/login': typeof AdminLoginRoute
   '/': typeof PublicIndexRoute
 }
 export interface FileRoutesById {
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/_public/pricing': typeof PublicPricingRoute
   '/_public/quotation-preview': typeof PublicQuotationPreviewRoute
   '/_public/services': typeof PublicServicesRoute
+  '/admin/login': typeof AdminLoginRoute
   '/_public/': typeof PublicIndexRoute
 }
 export interface FileRouteTypes {
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/quotation-preview'
     | '/services'
+    | '/admin/login'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/contact'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/quotation-preview'
     | '/services'
+    | '/admin/login'
     | '/'
   id:
     | '__root__'
@@ -103,11 +114,13 @@ export interface FileRouteTypes {
     | '/_public/pricing'
     | '/_public/quotation-preview'
     | '/_public/services'
+    | '/admin/login'
     | '/_public/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   PublicRoute: typeof PublicRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -125,6 +138,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_public/services': {
       id: '/_public/services'
@@ -187,6 +207,7 @@ const PublicRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   PublicRoute: PublicRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
