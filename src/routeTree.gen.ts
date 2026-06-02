@@ -9,61 +9,258 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as PublicRouteImport } from './routes/_public'
+import { Route as PublicIndexRouteImport } from './routes/_public.index'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminAuthRouteImport } from './routes/admin._auth'
+import { Route as PublicServicesRouteImport } from './routes/_public.services'
+import { Route as PublicQuotationPreviewRouteImport } from './routes/_public.quotation-preview'
+import { Route as PublicPricingRouteImport } from './routes/_public.pricing'
+import { Route as PublicEstimateRouteImport } from './routes/_public.estimate'
+import { Route as PublicContactRouteImport } from './routes/_public.contact'
+import { Route as AdminAuthDashboardRouteImport } from './routes/admin._auth.dashboard'
 
-const IndexRoute = IndexRouteImport.update({
+const PublicRoute = PublicRouteImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAuthRoute = AdminAuthRouteImport.update({
+  id: '/admin/_auth',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicServicesRoute = PublicServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicQuotationPreviewRoute = PublicQuotationPreviewRouteImport.update({
+  id: '/quotation-preview',
+  path: '/quotation-preview',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicPricingRoute = PublicPricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicEstimateRoute = PublicEstimateRouteImport.update({
+  id: '/estimate',
+  path: '/estimate',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicContactRoute = PublicContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => PublicRoute,
+} as any)
+const AdminAuthDashboardRoute = AdminAuthDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminAuthRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof PublicIndexRoute
+  '/contact': typeof PublicContactRoute
+  '/estimate': typeof PublicEstimateRoute
+  '/pricing': typeof PublicPricingRoute
+  '/quotation-preview': typeof PublicQuotationPreviewRoute
+  '/services': typeof PublicServicesRoute
+  '/admin': typeof AdminAuthRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/dashboard': typeof AdminAuthDashboardRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/contact': typeof PublicContactRoute
+  '/estimate': typeof PublicEstimateRoute
+  '/pricing': typeof PublicPricingRoute
+  '/quotation-preview': typeof PublicQuotationPreviewRoute
+  '/services': typeof PublicServicesRoute
+  '/admin': typeof AdminAuthRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/': typeof PublicIndexRoute
+  '/admin/dashboard': typeof AdminAuthDashboardRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_public': typeof PublicRouteWithChildren
+  '/_public/contact': typeof PublicContactRoute
+  '/_public/estimate': typeof PublicEstimateRoute
+  '/_public/pricing': typeof PublicPricingRoute
+  '/_public/quotation-preview': typeof PublicQuotationPreviewRoute
+  '/_public/services': typeof PublicServicesRoute
+  '/admin/_auth': typeof AdminAuthRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/_public/': typeof PublicIndexRoute
+  '/admin/_auth/dashboard': typeof AdminAuthDashboardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/contact'
+    | '/estimate'
+    | '/pricing'
+    | '/quotation-preview'
+    | '/services'
+    | '/admin'
+    | '/admin/login'
+    | '/admin/dashboard'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/contact'
+    | '/estimate'
+    | '/pricing'
+    | '/quotation-preview'
+    | '/services'
+    | '/admin'
+    | '/admin/login'
+    | '/'
+    | '/admin/dashboard'
+  id:
+    | '__root__'
+    | '/_public'
+    | '/_public/contact'
+    | '/_public/estimate'
+    | '/_public/pricing'
+    | '/_public/quotation-preview'
+    | '/_public/services'
+    | '/admin/_auth'
+    | '/admin/login'
+    | '/_public/'
+    | '/admin/_auth/dashboard'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  PublicRoute: typeof PublicRouteWithChildren
+  AdminAuthRoute: typeof AdminAuthRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/': {
+      id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/_auth': {
+      id: '/admin/_auth'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/services': {
+      id: '/_public/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof PublicServicesRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/quotation-preview': {
+      id: '/_public/quotation-preview'
+      path: '/quotation-preview'
+      fullPath: '/quotation-preview'
+      preLoaderRoute: typeof PublicQuotationPreviewRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/pricing': {
+      id: '/_public/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PublicPricingRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/estimate': {
+      id: '/_public/estimate'
+      path: '/estimate'
+      fullPath: '/estimate'
+      preLoaderRoute: typeof PublicEstimateRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/contact': {
+      id: '/_public/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof PublicContactRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/admin/_auth/dashboard': {
+      id: '/admin/_auth/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminAuthDashboardRouteImport
+      parentRoute: typeof AdminAuthRoute
     }
   }
 }
 
+interface PublicRouteChildren {
+  PublicContactRoute: typeof PublicContactRoute
+  PublicEstimateRoute: typeof PublicEstimateRoute
+  PublicPricingRoute: typeof PublicPricingRoute
+  PublicQuotationPreviewRoute: typeof PublicQuotationPreviewRoute
+  PublicServicesRoute: typeof PublicServicesRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+}
+
+const PublicRouteChildren: PublicRouteChildren = {
+  PublicContactRoute: PublicContactRoute,
+  PublicEstimateRoute: PublicEstimateRoute,
+  PublicPricingRoute: PublicPricingRoute,
+  PublicQuotationPreviewRoute: PublicQuotationPreviewRoute,
+  PublicServicesRoute: PublicServicesRoute,
+  PublicIndexRoute: PublicIndexRoute,
+}
+
+const PublicRouteWithChildren =
+  PublicRoute._addFileChildren(PublicRouteChildren)
+
+interface AdminAuthRouteChildren {
+  AdminAuthDashboardRoute: typeof AdminAuthDashboardRoute
+}
+
+const AdminAuthRouteChildren: AdminAuthRouteChildren = {
+  AdminAuthDashboardRoute: AdminAuthDashboardRoute,
+}
+
+const AdminAuthRouteWithChildren = AdminAuthRoute._addFileChildren(
+  AdminAuthRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  PublicRoute: PublicRouteWithChildren,
+  AdminAuthRoute: AdminAuthRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
