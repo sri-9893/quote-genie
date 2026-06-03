@@ -197,7 +197,11 @@ function Estimate() {
                     }`}
                   >
                     {urgencyConfig[key].label}
-                    {key === "fast" && <span className="ml-1 text-xs">(+25%)</span>}
+                    {key === "fast" && (
+                      <span className="ml-1 text-xs">
+                        (+{Math.round((config.fastMultiplier - 1) * 100)}%)
+                      </span>
+                    )}
                   </button>
                 ))}
               </div>
