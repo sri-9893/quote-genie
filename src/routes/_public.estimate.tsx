@@ -13,7 +13,11 @@ import {
 } from "@/lib/quote/pricingData";
 import { calculateEstimate } from "@/lib/quote/pricingCalculator";
 import { saveDraft } from "@/lib/quote/quotationStorage";
-import { useEffectivePackages, useEffectiveFeatures } from "@/lib/quote/hooks";
+import {
+  useEffectivePackages,
+  useEffectiveFeatures,
+  usePricingConfig,
+} from "@/lib/quote/hooks";
 import type { EstimatorInput } from "@/lib/quote/types";
 
 export const Route = createFileRoute("/_public/estimate")({
