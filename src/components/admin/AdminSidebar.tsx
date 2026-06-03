@@ -8,12 +8,14 @@ import {
   Menu,
   X,
   ExternalLink,
+  SlidersHorizontal,
 } from "lucide-react";
 import { getAdminEmail, logout } from "@/lib/quote/adminAuth";
 
 const navItems = [
   { to: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/admin/quotations", label: "Quotations", icon: FileText },
+  { to: "/admin/pricing", label: "Pricing Settings", icon: SlidersHorizontal },
 ] as const;
 
 export function AdminSidebar() {
