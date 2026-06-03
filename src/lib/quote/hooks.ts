@@ -1,6 +1,15 @@
 import { useSyncExternalStore } from "react";
 import { getQuotationsSnapshot, subscribe } from "./quotationStorage";
 import { isAuthenticated, subscribeAuth } from "./adminAuth";
+import {
+  getConfigSnapshot,
+  getServerConfigSnapshot,
+  subscribeConfig,
+  getEffectivePackages,
+  getEffectiveFeatures,
+  getFastMultiplier,
+  type PricingConfig,
+} from "./pricingStore";
 import type { Quotation } from "./types";
 
 const EMPTY: Quotation[] = [];
@@ -21,4 +30,29 @@ export function useAdminAuth(): boolean {
     () => isAuthenticated(),
     () => false,
   );
+}
+
+// Live pricing config that re-renders when an admin edits prices.
+export function usePricingConfig(): PricingConfig {
+  return useSyncExternalStore(
+    subscribeConfig,
+    getConfigSnapshot,
+    getServerConfigSnapshot,
+  );
+}
+
+// Convenience hooks returning effective (merged) pricing data.
+export function useEffectivePackages() {
+  const config = usePricingConfig();
+  return getEffectivePackages(config);
+}
+
+export function useEffectiveFeatures() {
+  const config = usePricingConfig();
+  return getEffectiveFeatures(config);
+}
+
+export function useFastMultiplier() {
+  const config = usePricingConfig();
+  return getFastMultiplier(config);
 }

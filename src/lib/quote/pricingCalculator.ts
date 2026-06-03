@@ -1,9 +1,9 @@
+import { urgencyConfig, type PackageKey } from "./pricingData";
 import {
-  features,
-  packages,
-  urgencyConfig,
-  type PackageKey,
-} from "./pricingData";
+  getEffectivePackages,
+  getEffectiveFeatures,
+  getFastMultiplier,
+} from "./pricingStore";
 import type { EstimatorInput, EstimateResult, PriceLineItem } from "./types";
 
 /**
@@ -12,6 +12,8 @@ import type { EstimatorInput, EstimateResult, PriceLineItem } from "./types";
  * urgency surcharge, subtotal, total and an estimated timeline.
  */
 export function calculateEstimate(input: EstimatorInput): EstimateResult {
+  const packages = getEffectivePackages();
+  const features = getEffectiveFeatures();
   const pkg = packages[input.packageKey];
 
   // Pages: charge only for pages above the package's included minimum.
@@ -39,7 +41,9 @@ export function calculateEstimate(input: EstimatorInput): EstimateResult {
   const preUrgency = pkg.basePrice + pagesCharge + extrasTotal;
 
   const urgency = urgencyConfig[input.urgency];
-  const urgencyCharge = Math.round(preUrgency * (urgency.multiplier - 1));
+  const multiplier =
+    input.urgency === "fast" ? getFastMultiplier() : urgency.multiplier;
+  const urgencyCharge = Math.round(preUrgency * (multiplier - 1));
   const subtotal = preUrgency;
   const total = preUrgency + urgencyCharge;
 
@@ -63,6 +67,7 @@ export function calculateEstimate(input: EstimatorInput): EstimateResult {
 
 // Suggest a package based on website type + budget (used to pre-select).
 export function suggestPackage(budget: number): PackageKey {
+  const packages = getEffectivePackages();
   if (budget >= packages.high.basePrice) return "high";
   if (budget >= packages.mid.basePrice) return "mid";
   return "low";
