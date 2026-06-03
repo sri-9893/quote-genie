@@ -19,6 +19,8 @@ import { Route as PublicPricingRouteImport } from './routes/_public.pricing'
 import { Route as PublicEstimateRouteImport } from './routes/_public.estimate'
 import { Route as PublicContactRouteImport } from './routes/_public.contact'
 import { Route as AdminAuthDashboardRouteImport } from './routes/admin._auth.dashboard'
+import { Route as AdminAuthQuotationsIndexRouteImport } from './routes/admin._auth.quotations.index'
+import { Route as AdminAuthQuotationsIdRouteImport } from './routes/admin._auth.quotations.$id'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -69,6 +71,17 @@ const AdminAuthDashboardRoute = AdminAuthDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AdminAuthRoute,
 } as any)
+const AdminAuthQuotationsIndexRoute =
+  AdminAuthQuotationsIndexRouteImport.update({
+    id: '/quotations/',
+    path: '/quotations/',
+    getParentRoute: () => AdminAuthRoute,
+  } as any)
+const AdminAuthQuotationsIdRoute = AdminAuthQuotationsIdRouteImport.update({
+  id: '/quotations/$id',
+  path: '/quotations/$id',
+  getParentRoute: () => AdminAuthRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
@@ -80,6 +93,8 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminAuthRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/admin/dashboard': typeof AdminAuthDashboardRoute
+  '/admin/quotations/$id': typeof AdminAuthQuotationsIdRoute
+  '/admin/quotations/': typeof AdminAuthQuotationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/contact': typeof PublicContactRoute
@@ -91,6 +106,8 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/': typeof PublicIndexRoute
   '/admin/dashboard': typeof AdminAuthDashboardRoute
+  '/admin/quotations/$id': typeof AdminAuthQuotationsIdRoute
+  '/admin/quotations': typeof AdminAuthQuotationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -104,6 +121,8 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/_public/': typeof PublicIndexRoute
   '/admin/_auth/dashboard': typeof AdminAuthDashboardRoute
+  '/admin/_auth/quotations/$id': typeof AdminAuthQuotationsIdRoute
+  '/admin/_auth/quotations/': typeof AdminAuthQuotationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,6 +136,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/login'
     | '/admin/dashboard'
+    | '/admin/quotations/$id'
+    | '/admin/quotations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/contact'
@@ -128,6 +149,8 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/'
     | '/admin/dashboard'
+    | '/admin/quotations/$id'
+    | '/admin/quotations'
   id:
     | '__root__'
     | '/_public'
@@ -140,6 +163,8 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/_public/'
     | '/admin/_auth/dashboard'
+    | '/admin/_auth/quotations/$id'
+    | '/admin/_auth/quotations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -220,6 +245,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAuthDashboardRouteImport
       parentRoute: typeof AdminAuthRoute
     }
+    '/admin/_auth/quotations/': {
+      id: '/admin/_auth/quotations/'
+      path: '/quotations'
+      fullPath: '/admin/quotations/'
+      preLoaderRoute: typeof AdminAuthQuotationsIndexRouteImport
+      parentRoute: typeof AdminAuthRoute
+    }
+    '/admin/_auth/quotations/$id': {
+      id: '/admin/_auth/quotations/$id'
+      path: '/quotations/$id'
+      fullPath: '/admin/quotations/$id'
+      preLoaderRoute: typeof AdminAuthQuotationsIdRouteImport
+      parentRoute: typeof AdminAuthRoute
+    }
   }
 }
 
@@ -246,10 +285,14 @@ const PublicRouteWithChildren =
 
 interface AdminAuthRouteChildren {
   AdminAuthDashboardRoute: typeof AdminAuthDashboardRoute
+  AdminAuthQuotationsIdRoute: typeof AdminAuthQuotationsIdRoute
+  AdminAuthQuotationsIndexRoute: typeof AdminAuthQuotationsIndexRoute
 }
 
 const AdminAuthRouteChildren: AdminAuthRouteChildren = {
   AdminAuthDashboardRoute: AdminAuthDashboardRoute,
+  AdminAuthQuotationsIdRoute: AdminAuthQuotationsIdRoute,
+  AdminAuthQuotationsIndexRoute: AdminAuthQuotationsIndexRoute,
 }
 
 const AdminAuthRouteWithChildren = AdminAuthRoute._addFileChildren(
@@ -264,3 +307,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
