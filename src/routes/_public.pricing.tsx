@@ -3,10 +3,9 @@ import { CheckCircle2, ArrowRight, XCircle } from "lucide-react";
 import { Section, SectionHeading } from "@/components/site/Section";
 import {
   packageOrder,
-  packages,
-  features,
   formatCurrency,
 } from "@/lib/quote/pricingData";
+import { useEffectivePackages, useEffectiveFeatures } from "@/lib/quote/hooks";
 
 export const Route = createFileRoute("/_public/pricing")({
   head: () => ({
@@ -23,6 +22,8 @@ export const Route = createFileRoute("/_public/pricing")({
 });
 
 function Pricing() {
+  const packages = useEffectivePackages();
+  const features = useEffectiveFeatures();
   return (
     <div className="page-enter">
       <section className="gradient-hero text-white">
