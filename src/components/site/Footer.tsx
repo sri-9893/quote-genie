@@ -44,9 +44,9 @@ export function Footer() {
             Contact
           </h4>
           <ul className="space-y-2 text-sm text-sidebar-foreground/80">
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> hello@nexaforge.dev</li>
-            <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +91 98765 43210</li>
-            <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Bengaluru, India</li>
+            <li className="flex items-center gap-2"><Mail className="h-4 w-4" /><span>hello@nexaforge.dev</span></li>
+            <li className="flex items-center gap-2"><Phone className="h-4 w-4" /><span>+91 98765 43210</span></li>
+            <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /><span>Bengaluru, India</span></li>
           </ul>
         </div>
       </div>
