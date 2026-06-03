@@ -6,8 +6,6 @@ import { Section } from "@/components/site/Section";
 import {
   websiteTypes,
   packageOrder,
-  packages,
-  features,
   urgencyConfig,
   formatCurrency,
   type PackageKey,
@@ -15,6 +13,7 @@ import {
 } from "@/lib/quote/pricingData";
 import { calculateEstimate } from "@/lib/quote/pricingCalculator";
 import { saveDraft } from "@/lib/quote/quotationStorage";
+import { useEffectivePackages, useEffectiveFeatures } from "@/lib/quote/hooks";
 import type { EstimatorInput } from "@/lib/quote/types";
 
 export const Route = createFileRoute("/_public/estimate")({
@@ -33,6 +32,8 @@ export const Route = createFileRoute("/_public/estimate")({
 function Estimate() {
   const navigate = useNavigate();
   const { pkg } = Route.useSearch();
+  const packages = useEffectivePackages();
+  const features = useEffectiveFeatures();
 
   const [form, setForm] = useState<EstimatorInput>({
     websiteType: "business",
@@ -58,7 +59,8 @@ function Estimate() {
         : [...f.features, key],
     }));
 
-  const estimate = useMemo(() => calculateEstimate(form), [form]);
+  const config = usePricingConfig();
+  const estimate = useMemo(() => calculateEstimate(form), [form, config]);
 
   const handleSubmit = () => {
     if (!form.name.trim() || !form.mobile.trim() || !form.email.trim()) {
