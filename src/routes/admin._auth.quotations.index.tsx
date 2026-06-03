@@ -5,7 +5,7 @@ import { useQuotations } from "@/lib/quote/hooks";
 import { QuotationCard } from "@/components/quote/QuotationCard";
 import { statusOptions, type QuotationStatus } from "@/lib/quote/pricingData";
 
-export const Route = createFileRoute("/admin/_auth/quotations")({
+export const Route = createFileRoute("/admin/_auth/quotations/")({
   head: () => ({ meta: [{ title: "Quotations — NexaForge Admin" }] }),
   component: Quotations,
 });
