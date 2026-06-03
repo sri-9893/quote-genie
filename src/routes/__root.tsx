@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Instantly estimate the cost of your website, branding, SEO and digital project. Get a detailed quotation and download it as a PDF.",
       },
       { name: "author", content: "Tech Minds IT Solutions" },
-      { property: "og:title", content: "Tech Minds IT Solutions — Website Cost Estimator" },
+      { property: "og:title", content: "Tech Minds IT Solutions — Website Cost Estimator & Quotation" },
       {
         property: "og:description",
         content: "Estimate your website project cost and get an instant quotation.",
@@ -93,6 +93,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Tech Minds IT Solutions — Website Cost Estimator & Quotation" },
+      { name: "description", content: "Quote Genie is a web application for generating professional cost estimates and quotations for digital services." },
+      { property: "og:description", content: "Quote Genie is a web application for generating professional cost estimates and quotations for digital services." },
+      { name: "twitter:description", content: "Quote Genie is a web application for generating professional cost estimates and quotations for digital services." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/be114012-91bb-40b3-b1b2-eeda06f5ffd6/id-preview-ab4b3d15--3140c87d-391e-4ca0-9869-3485e2bb7224.lovable.app-1780469303572.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/be114012-91bb-40b3-b1b2-eeda06f5ffd6/id-preview-ab4b3d15--3140c87d-391e-4ca0-9869-3485e2bb7224.lovable.app-1780469303572.png" },
     ],
     links: [
       {
