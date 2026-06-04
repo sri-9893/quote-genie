@@ -113,6 +113,17 @@ export function downloadQuotationPdf({ input, estimate, quotationId }: PdfData) 
     doc.line(margin, y, pageWidth - margin, y);
   }
 
+  // GST line
+  const gstRate = estimate.gstRate ?? 18;
+  const gstAmount = estimate.gstAmount ?? 0;
+  y += rowHeight;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(11);
+  doc.setTextColor(...DARK);
+  doc.text(`GST (${gstRate}%)`, margin, y - 7);
+  doc.text(formatCurrency(gstAmount), pageWidth - margin, y - 7, { align: "right" });
+  doc.line(margin, y, pageWidth - margin, y);
+
   // Total
   y += 30;
   doc.setFillColor(...DARK);
