@@ -161,3 +161,9 @@ export function getFastMultiplier(
 ): number {
   return config.fastMultiplier;
 }
+
+export function getGstRate(
+  config: PricingConfig = getConfigSnapshot(),
+): number {
+  return config.gstRate;
+}
