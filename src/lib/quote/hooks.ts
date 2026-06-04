@@ -57,3 +57,8 @@ export function useFastMultiplier() {
   const config = usePricingConfig();
   return getFastMultiplier(config);
 }
+
+export function useGstRate() {
+  const config = usePricingConfig();
+  return getGstRate(config);
+}
