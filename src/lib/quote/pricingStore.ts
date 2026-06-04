@@ -53,7 +53,7 @@ export function defaultConfig(): PricingConfig {
   }
   const features: Record<string, number> = {};
   for (const f of defaultFeatures) features[f.key] = f.price;
-  return { packages, features, fastMultiplier: defaultUrgency.fast.multiplier };
+  return { packages, features, fastMultiplier: defaultUrgency.fast.multiplier, gstRate: 18 };
 }
 
 // Merge stored overrides on top of defaults so newly added packages/features
