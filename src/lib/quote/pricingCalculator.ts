@@ -46,7 +46,11 @@ export function calculateEstimate(input: EstimatorInput): EstimateResult {
     input.urgency === "fast" ? getFastMultiplier() : urgency.multiplier;
   const urgencyCharge = Math.round(preUrgency * (multiplier - 1));
   const subtotal = preUrgency;
-  const total = preUrgency + urgencyCharge;
+
+  const gstRate = getGstRate();
+  const preTax = subtotal + urgencyCharge;
+  const gstAmount = Math.round(preTax * (gstRate / 100));
+  const total = preTax + gstAmount;
 
   // Timeline: base days + a little per billable page, adjusted by urgency.
   const rawTimeline = pkg.baseTimelineDays + Math.ceil(billablePages * 1.5);
@@ -61,6 +65,8 @@ export function calculateEstimate(input: EstimatorInput): EstimateResult {
     includedServices,
     urgencyCharge,
     subtotal,
+    gstRate,
+    gstAmount,
     total,
     timelineDays,
   };
