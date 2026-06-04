@@ -33,6 +33,7 @@ export interface PricingConfig {
   packages: Record<PackageKey, PackageOverride>;
   features: Record<string, number>; // feature key -> price
   fastMultiplier: number; // e.g. 1.25 = +25%
+  gstRate: number; // e.g. 18 for 18% GST
 }
 
 function isBrowser() {
