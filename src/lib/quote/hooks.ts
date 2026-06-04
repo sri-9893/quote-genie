@@ -8,6 +8,7 @@ import {
   getEffectivePackages,
   getEffectiveFeatures,
   getFastMultiplier,
+  getGstRate,
   type PricingConfig,
 } from "./pricingStore";
 import type { Quotation } from "./types";
