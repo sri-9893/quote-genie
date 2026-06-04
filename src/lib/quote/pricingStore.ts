@@ -33,6 +33,7 @@ export interface PricingConfig {
   packages: Record<PackageKey, PackageOverride>;
   features: Record<string, number>; // feature key -> price
   fastMultiplier: number; // e.g. 1.25 = +25%
+  gstRate: number; // e.g. 18 for 18% GST
 }
 
 function isBrowser() {
@@ -52,7 +53,7 @@ export function defaultConfig(): PricingConfig {
   }
   const features: Record<string, number> = {};
   for (const f of defaultFeatures) features[f.key] = f.price;
-  return { packages, features, fastMultiplier: defaultUrgency.fast.multiplier };
+  return { packages, features, fastMultiplier: defaultUrgency.fast.multiplier, gstRate: 18 };
 }
 
 // Merge stored overrides on top of defaults so newly added packages/features
@@ -72,6 +73,7 @@ function merge(stored: Partial<PricingConfig> | null): PricingConfig {
     packages,
     features: { ...base.features, ...(stored.features ?? {}) },
     fastMultiplier: stored.fastMultiplier ?? base.fastMultiplier,
+    gstRate: stored.gstRate ?? base.gstRate,
   };
 }
 
@@ -158,4 +160,10 @@ export function getFastMultiplier(
   config: PricingConfig = getConfigSnapshot(),
 ): number {
   return config.fastMultiplier;
+}
+
+export function getGstRate(
+  config: PricingConfig = getConfigSnapshot(),
+): number {
+  return config.gstRate;
 }

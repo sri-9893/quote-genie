@@ -162,6 +162,7 @@ function QuotationDetail() {
               {estimate.urgencyCharge > 0 && (
                 <Row label="Fast delivery surcharge" value={formatCurrency(estimate.urgencyCharge)} />
               )}
+              <Row label={`GST (${estimate.gstRate ?? 18}%)`} value={formatCurrency(estimate.gstAmount ?? 0)} />
               <div className="mt-2 flex items-center justify-between border-t border-border pt-3 text-base font-bold text-foreground">
                 <span>Total</span>
                 <span>{formatCurrency(estimate.total)}</span>

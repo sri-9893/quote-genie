@@ -8,6 +8,7 @@ import {
   getEffectivePackages,
   getEffectiveFeatures,
   getFastMultiplier,
+  getGstRate,
   type PricingConfig,
 } from "./pricingStore";
 import type { Quotation } from "./types";
@@ -55,4 +56,9 @@ export function useEffectiveFeatures() {
 export function useFastMultiplier() {
   const config = usePricingConfig();
   return getFastMultiplier(config);
+}
+
+export function useGstRate() {
+  const config = usePricingConfig();
+  return getGstRate(config);
 }

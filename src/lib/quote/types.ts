@@ -28,8 +28,10 @@ export interface EstimateResult {
   extraItems: PriceLineItem[]; // paid extras (features not included in package)
   includedServices: string[];
   urgencyCharge: number;
-  subtotal: number;
-  total: number;
+  subtotal: number; // pre-urgency, pre-GST
+  gstRate: number; // e.g. 18 for 18%
+  gstAmount: number;
+  total: number; // subtotal + urgencyCharge + gstAmount
   timelineDays: number;
 }
 

@@ -257,6 +257,11 @@ function Estimate() {
                   <Line key={i.label} label={i.label} value={formatCurrency(i.amount)} />
                 ))}
                 {estimate.urgencyCharge > 0 && <Line label="Fast delivery" value={formatCurrency(estimate.urgencyCharge)} />}
+                <Line label={`GST (${estimate.gstRate ?? 18}%)`} value={formatCurrency(estimate.gstAmount ?? 0)} />
+                <div className="mt-2 flex items-center justify-between border-t border-border pt-2 font-bold text-foreground">
+                  <span>Total</span>
+                  <span>{formatCurrency(estimate.total)}</span>
+                </div>
               </div>
 
               <button
