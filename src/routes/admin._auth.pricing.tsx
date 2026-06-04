@@ -153,6 +153,20 @@ function PricingSettings() {
           </p>
         </div>
       </Panel>
+
+      {/* GST */}
+      <Panel title="GST settings">
+        <div className="max-w-xs">
+          <NumberField
+            label="GST rate (%)"
+            value={draft.gstRate}
+            onChange={(v) => setDraft((d) => ({ ...d, gstRate: v }))}
+          />
+          <p className="mt-1 text-xs text-muted-foreground">
+            Applied to the subtotal + urgency charge on all new estimates.
+          </p>
+        </div>
+      </Panel>
     </div>
   );
 }
