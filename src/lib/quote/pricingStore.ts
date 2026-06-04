@@ -73,6 +73,7 @@ function merge(stored: Partial<PricingConfig> | null): PricingConfig {
     packages,
     features: { ...base.features, ...(stored.features ?? {}) },
     fastMultiplier: stored.fastMultiplier ?? base.fastMultiplier,
+    gstRate: stored.gstRate ?? base.gstRate,
   };
 }
 
