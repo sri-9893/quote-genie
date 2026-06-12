@@ -92,16 +92,16 @@ export function downloadQuotationPdf({ input, estimate, quotationId }: PdfData) 
   y += 14;
 
   const rows: Array<[string, string]> = [
-    [`${estimate.packageName} package (base)`, formatCurrency(estimate.basePrice)],
+    [`${estimate.packageName} package (base)`, formatPdfCurrency(estimate.basePrice)],
   ];
   if (estimate.pagesCharge > 0) {
-    rows.push(["Additional pages", formatCurrency(estimate.pagesCharge)]);
+    rows.push(["Additional pages", formatPdfCurrency(estimate.pagesCharge)]);
   }
   for (const item of estimate.extraItems) {
-    rows.push([`Extra: ${item.label}`, formatCurrency(item.amount)]);
+    rows.push([`Extra: ${item.label}`, formatPdfCurrency(item.amount)]);
   }
   if (estimate.urgencyCharge > 0) {
-    rows.push(["Fast delivery surcharge", formatCurrency(estimate.urgencyCharge)]);
+    rows.push(["Fast delivery surcharge", formatPdfCurrency(estimate.urgencyCharge)]);
   }
 
   const rowHeight = 24;
@@ -124,7 +124,7 @@ export function downloadQuotationPdf({ input, estimate, quotationId }: PdfData) 
   doc.setFontSize(11);
   doc.setTextColor(...DARK);
   doc.text(`GST (${gstRate}%)`, margin, y - 7);
-  doc.text(formatCurrency(gstAmount), pageWidth - margin, y - 7, { align: "right" });
+  doc.text(formatPdfCurrency(gstAmount), pageWidth - margin, y - 7, { align: "right" });
   doc.line(margin, y, pageWidth - margin, y);
 
   // Total
@@ -135,7 +135,7 @@ export function downloadQuotationPdf({ input, estimate, quotationId }: PdfData) 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(13);
   doc.text("Estimated Total", margin + 16, y + 2);
-  doc.text(formatCurrency(estimate.total), pageWidth - margin - 16, y + 2, {
+  doc.text(formatPdfCurrency(estimate.total), pageWidth - margin - 16, y + 2, {
     align: "right",
   });
 
