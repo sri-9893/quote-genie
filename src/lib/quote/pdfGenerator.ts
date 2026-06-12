@@ -1,6 +1,9 @@
 import { jsPDF } from "jspdf";
-import { formatCurrency } from "./pricingData";
 import type { EstimatorInput, EstimateResult } from "./types";
+
+function formatPdfCurrency(value: number): string {
+  return "Rs. " + Math.round(value).toLocaleString("en-IN");
+}
 
 const BRAND = "Tech Minds IT Solutions";
 const PRIMARY: [number, number, number] = [56, 70, 220];
