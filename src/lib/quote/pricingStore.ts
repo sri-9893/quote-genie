@@ -3,6 +3,8 @@ import {
   features as defaultFeatures,
   urgencyConfig as defaultUrgency,
   packageOrder,
+  CURRENCY,
+  setActiveCurrency,
   type PackageInfo,
   type FeatureInfo,
   type PackageKey,
@@ -34,6 +36,7 @@ export interface PricingConfig {
   features: Record<string, number>; // feature key -> price
   fastMultiplier: number; // e.g. 1.25 = +25%
   gstRate: number; // e.g. 18 for 18% GST
+  currencySymbol: string; // e.g. "₹" or "Rs."
 }
 
 function isBrowser() {
@@ -53,7 +56,13 @@ export function defaultConfig(): PricingConfig {
   }
   const features: Record<string, number> = {};
   for (const f of defaultFeatures) features[f.key] = f.price;
-  return { packages, features, fastMultiplier: defaultUrgency.fast.multiplier, gstRate: 18 };
+  return {
+    packages,
+    features,
+    fastMultiplier: defaultUrgency.fast.multiplier,
+    gstRate: 18,
+    currencySymbol: CURRENCY,
+  };
 }
 
 // Merge stored overrides on top of defaults so newly added packages/features
@@ -74,6 +83,7 @@ function merge(stored: Partial<PricingConfig> | null): PricingConfig {
     features: { ...base.features, ...(stored.features ?? {}) },
     fastMultiplier: stored.fastMultiplier ?? base.fastMultiplier,
     gstRate: stored.gstRate ?? base.gstRate,
+    currencySymbol: stored.currencySymbol ?? base.currencySymbol,
   };
 }
 
@@ -81,7 +91,9 @@ function read(): PricingConfig {
   if (!isBrowser()) return defaultConfig();
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    return merge(raw ? (JSON.parse(raw) as Partial<PricingConfig>) : null);
+    const config = merge(raw ? (JSON.parse(raw) as Partial<PricingConfig>) : null);
+    setActiveCurrency(config.currencySymbol);
+    return config;
   } catch {
     return defaultConfig();
   }
@@ -102,6 +114,7 @@ export function getServerConfigSnapshot(): PricingConfig {
 export function saveConfig(config: PricingConfig) {
   if (!isBrowser()) return;
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+  setActiveCurrency(config.currencySymbol);
   cache = null;
   window.dispatchEvent(new Event(EVENT));
 }
@@ -109,6 +122,7 @@ export function saveConfig(config: PricingConfig) {
 export function resetConfig() {
   if (!isBrowser()) return;
   window.localStorage.removeItem(STORAGE_KEY);
+  setActiveCurrency(CURRENCY);
   cache = null;
   window.dispatchEvent(new Event(EVENT));
 }
@@ -166,4 +180,10 @@ export function getGstRate(
   config: PricingConfig = getConfigSnapshot(),
 ): number {
   return config.gstRate;
+}
+
+export function getCurrencySymbol(
+  config: PricingConfig = getConfigSnapshot(),
+): string {
+  return config.currencySymbol;
 }
