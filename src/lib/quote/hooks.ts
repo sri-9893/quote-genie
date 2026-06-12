@@ -9,6 +9,7 @@ import {
   getEffectiveFeatures,
   getFastMultiplier,
   getGstRate,
+  getCurrencySymbol,
   type PricingConfig,
 } from "./pricingStore";
 import type { Quotation } from "./types";
@@ -61,4 +62,9 @@ export function useFastMultiplier() {
 export function useGstRate() {
   const config = usePricingConfig();
   return getGstRate(config);
+}
+
+export function useCurrencySymbol() {
+  const config = usePricingConfig();
+  return getCurrencySymbol(config);
 }
