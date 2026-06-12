@@ -1,8 +1,14 @@
 import { jsPDF } from "jspdf";
 import type { EstimatorInput, EstimateResult } from "./types";
+import { getCurrencySymbol } from "./pricingStore";
 
-function formatPdfCurrency(value: number): string {
-  return "Rs. " + Math.round(value).toLocaleString("en-IN");
+// jsPDF's built-in Helvetica font cannot render the ₹ glyph, so we map it to
+// the ASCII "Rs." fallback. Any other symbol (e.g. "Rs.", "$") is used as-is.
+// Either way amounts use the same comma grouping as the on-screen breakdown.
+function makePdfFormatter(symbol: string) {
+  const safe = symbol === "₹" ? "Rs." : symbol;
+  return (value: number): string =>
+    `${safe} ${Math.round(value).toLocaleString("en-IN")}`;
 }
 
 const BRAND = "Tech Minds IT Solutions";
@@ -20,6 +26,7 @@ interface PdfData {
  * Generates a professional quotation PDF and triggers a download.
  */
 export function downloadQuotationPdf({ input, estimate, quotationId }: PdfData) {
+  const formatPdfCurrency = makePdfFormatter(getCurrencySymbol());
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const pageWidth = doc.internal.pageSize.getWidth();
   const margin = 48;

@@ -33,6 +33,18 @@ export interface WebsiteType {
 
 export const CURRENCY = "₹";
 
+// Mutable symbol kept in sync with the admin pricing config (see pricingStore).
+// formatCurrency reads this so a currency change applies everywhere instantly.
+let activeCurrency = CURRENCY;
+
+export function setActiveCurrency(symbol: string) {
+  activeCurrency = symbol || CURRENCY;
+}
+
+export function getActiveCurrency(): string {
+  return activeCurrency;
+}
+
 export const websiteTypes: WebsiteType[] = [
   { key: "business", label: "Business", suggested: "mid" },
   { key: "jewellery", label: "Jewellery", suggested: "high" },
@@ -131,5 +143,5 @@ export const statusOptions = [
 export type QuotationStatus = (typeof statusOptions)[number];
 
 export function formatCurrency(value: number): string {
-  return CURRENCY + Math.round(value).toLocaleString("en-IN");
+  return activeCurrency + Math.round(value).toLocaleString("en-IN");
 }
