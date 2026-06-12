@@ -88,6 +88,39 @@ function PricingSettings() {
 
       {/* Packages */}
       <Panel title="Packages">
+        {null}
+      </Panel>
+
+      {/* Currency */}
+      <Panel title="Currency">
+        <div className="max-w-xs">
+          <label className="mb-3 block">
+            <span className="mb-1.5 block text-sm font-medium text-foreground">
+              Currency symbol
+            </span>
+            <select
+              value={draft.currencySymbol}
+              onChange={(e) =>
+                setDraft((d) => ({ ...d, currencySymbol: e.target.value }))
+              }
+              className="w-full rounded-lg border border-border bg-background py-2.5 px-3 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20"
+            >
+              <option value="₹">₹ (Rupee symbol)</option>
+              <option value="Rs.">Rs. (text)</option>
+              <option value="$">$ (Dollar)</option>
+              <option value="€">€ (Euro)</option>
+              <option value="£">£ (Pound)</option>
+            </select>
+          </label>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Used across the site, admin and quotations. In the PDF the ₹ symbol
+            is shown as “Rs.” for reliable printing.
+          </p>
+        </div>
+      </Panel>
+
+      {/* Packages */}
+      <Panel title="Packages">
         <div className="grid gap-4 lg:grid-cols-3">
           {packageOrder.map((key) => {
             const pkg = draft.packages[key];
