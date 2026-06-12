@@ -86,11 +86,6 @@ function PricingSettings() {
         </div>
       </div>
 
-      {/* Packages */}
-      <Panel title="Packages">
-        {null}
-      </Panel>
-
       {/* Currency */}
       <Panel title="Currency">
         <div className="max-w-xs">
