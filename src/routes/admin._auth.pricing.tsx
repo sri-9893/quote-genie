@@ -131,12 +131,12 @@ function PricingSettings() {
                   {defaultPackages[key].tagline}
                 </p>
                 <NumberField
-                  label="Base price (₹)"
+                  label={`Base price (${draft.currencySymbol})`}
                   value={pkg.basePrice}
                   onChange={(v) => setPackage(key, "basePrice", v)}
                 />
                 <NumberField
-                  label="Per extra page (₹)"
+                  label={`Per extra page (${draft.currencySymbol})`}
                   value={pkg.perPage}
                   onChange={(v) => setPackage(key, "perPage", v)}
                 />
@@ -157,7 +157,7 @@ function PricingSettings() {
           {defaultFeatures.map((f) => (
             <NumberField
               key={f.key}
-              label={`${f.label} (₹)`}
+              label={`${f.label} (${draft.currencySymbol})`}
               value={draft.features[f.key] ?? f.price}
               onChange={(v) => setFeature(f.key, v)}
             />
